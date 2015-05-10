@@ -5,12 +5,15 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     ffi (1.9.8)
+    haml (4.0.6)
+      tilt
     hitimes (1.2.2)
     listen (2.10.0)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     multi_json (1.11.0)
+    pg (0.18.1)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -40,6 +43,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
+  pg
   rerun
   sinatra
   sinatra-contrib
