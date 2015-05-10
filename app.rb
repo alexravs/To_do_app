@@ -10,7 +10,7 @@ require("./lib/user")
 enable :sessions
 
 
-#set :bind, '0.0.0.0'
+set :bind, '0.0.0.0'
 
 get("/") do
 
