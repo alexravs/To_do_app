@@ -1,0 +1,70 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  
+}
+
+.list-group-item {
+  position:relative;
+}
+
+.priority_task {
+  opacity:;
+}
+
+.priority_task:hover {
+  opacity:1;
+}
+
+.effect-shadow {
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+	   -moz-box-shadow: 0 10px 6px -6px #777;
+	        box-shadow: 0 10px 6px -6px #777;
+}
+
+
+.second_task {
+  margin-top: ;
+  margin-left: 10px;
+}
+
+.first_task {
+  z-index: 4;
+  
+  
+}
+
+.second_task {
+  z-index: 3;
+  opacity: 0.7;
+  margin-left: 20px;
+}
+
+.third_task {
+  z-index: 2;
+  margin-left: 30px;
+  opacity: 0.5;
+}
+
+.no_description_task {
+  z-index: 1;
+  margin-top: ;
+  
+  margin-left: 40px;
+  opacity: 0.3;
+}
+
+.no_description_task2 {
+  z-index: 0;
+  margin-top: ;
+  margin-left: 50px;
+  opacity: 0.1;
+}
+
+.put_task_before_others {
+  z-index: 5;
+}
+
+
+

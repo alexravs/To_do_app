@@ -1,0 +1,81 @@
+<% if session[:connected] %>
+  <h1>Voici vos listes</h1>
+
+  <% if @lists.any?() %>
+    <ul>
+      <% @lists.each() do |list| %>
+        <!--<li><a href="/list/<%= list.id() %>"><%= list.name() %></a></li>-->
+        <div class="row ">
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <!--<img src="img/mathieu.jpg" class="img-responsive img-rounded" alt="Responsive image"/>-->
+              <div class="caption">
+                <a href="/list/<%= list.id() %>"><h3><%= list.name() %></h3></a>
+                <div class="list-group priority_task" id="priority_task">
+                  
+                  <% if list.tasks.any?() %>
+                  <% list.tasks.each_index() do |index| %>
+                       
+                          <%
+                          case index
+                          when 0 
+                          %>
+                              <li class="list-group-item  first_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                          <%
+                          when 1
+                          %>
+                              <li class="list-group-item  second_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                          <%
+                          when 2
+                          %>
+                               <li class="list-group-item  third_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                          <%
+                          when 3
+                          %>
+                               <li class="list-group-item no_description_task"></li> 
+                          <%
+                          when 4
+                          %>
+                               <li class="list-group-item no_description_task2 effect-shadow"></li> 
+                          <%
+                          end
+                          %>
+                      
+                    <% end %>
+                  <% end %>
+                    <!--<li class="list-group-item  first_task">First item</li>
+                    <li class="list-group-item  second_task">Second item</li>
+                    <li class="list-group-item  third_task">Third item</li>
+                    <li class="list-group-item no_description_task"></li>
+                    <li class="list-group-item no_description_task2"></li>-->
+                  
+                  
+                </div>
+                <p><a href="/list/<%= list.id() %>" class="btn btn-primary" role="button ">Explorer</a> <a href="/delete_list/<%= list.id()%>" class="btn btn-danger" role="button">Supprimer</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </ul>
+  
+  <% else %>
+    <p>Il n'y pas encore de liste...</p>
+  <% end %>
+
+  <form action="/lists" method="post">
+    <label for='name'>Nouvelle liste:</label>
+    <input id='name' name='name' type='text'>
+    <button type="submit">Ajouter</button>
+  </form>
+<% else %>
+  <div class="jumbotron text-center">
+    <h1>Bienvenue sur To Do App'</h1>
+    <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#myModal">
+      Connectez-vous
+    </button>
+    <p>Petite application réalisée par <a href="http://aravet.tk">A. Ravet</a></p>
+  </div>
+<% end %>
+
+<%= erb :modal_set_a_task %>
