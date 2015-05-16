@@ -20,15 +20,15 @@
                           case index
                           when 0 
                           %>
-                              <li class="list-group-item  first_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                              <li class="list-group-item  first_task hover" data-popover="true" data-html=true data-content="à faire pour: <%= list.tasks[index].date() %>"><%= list.tasks[index].description() %></li> 
                           <%
                           when 1
                           %>
-                              <li class="list-group-item  second_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                              <li class="list-group-item  second_task hover" data-popover="true" data-html=true data-content="à faire pour: <%= list.tasks[index].date() %>"><%= list.tasks[index].description() %></li> 
                           <%
                           when 2
                           %>
-                               <li class="list-group-item  third_task hover" data-popover="true" data-html=true data-content="<a target='blank' data-toggle='modal' data-target='.bs-example-modal-sm'>Modifier</a>"><%= list.tasks[index].description() %></li> 
+                               <li class="list-group-item  third_task hover" data-popover="true" data-html=true data-content="à faire pour: <%= list.tasks[index].date() %>"><%= list.tasks[index].description() %></li> 
                           <%
                           when 3
                           %>
@@ -70,11 +70,11 @@
   </form>
 <% else %>
   <div class="jumbotron text-center">
-    <h1>Bienvenue sur To Do App'</h1>
+    <h1>Bienvenue</h1>
     <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#myModal">
       Connectez-vous
     </button>
-    <p>Petite application réalisée par <a href="http://aravet.tk">A. Ravet</a></p>
+    <p>Back-end réalisé en Ruby (Sinatra)</p>
   </div>
 <% end %>
 

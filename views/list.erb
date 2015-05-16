@@ -6,8 +6,13 @@
   <input type="hidden" name="id" value="<%= @id %>">
 
   <div class="form-group">
-    <label for="new_task">Nouvelle tache: </label>
+    <label for="new_task">Nouvelle tâche: </label>
     <input id="new_task" name="description" class="form-control" type="text" placeholder="Qu'avez-vous à faire?" autofocus>
+    
+  </div>
+  <div class="form-group">
+    <label for="task_date" >à réaliser avant le (date): </label>
+    <input type="date" name="task_date" id="task_date">
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary">Insérer</button>
@@ -16,14 +21,14 @@
 <h1>Liste:</h1>
 <% if @tasks.nil?.!() %>
   <ul id="task" class="list-group">
-    <form action="edit_task" method="post">
+    
     <% @tasks.each() do |task| %>
-      <li class="list-group-item"><%= task.description() %> <input id='new_description' name='new_description' type='text'> <input  name='task_id' type='hidden' value="<%= task.id() %>"> <button type="submit" class="btn btn-danger" name="id" value="<%= @current_list.id() %>" >test</button> <a href="/delete_task/<%= task.id() %>/<%= @id %>"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
+      <li class="list-group-item"><%= task.description() %>: <%= task.date() %><a href="/delete_task/<%= task.id() %>/<%= @id %>"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true" style="color:white;"></span></a>
 </li> 
     <% end %> 
   </ul>
 <% else %>
-  <p>Il n'y a pas encore de tâche ici ...
+  <p>Il n'y a pas encore de tâches ici ...
 <% end %>
 <form action='/tasks_clear' method="post">
   

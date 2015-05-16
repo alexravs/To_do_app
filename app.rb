@@ -4,27 +4,23 @@ DB = PG.connect({:dbname => 'to_do'})
 
 require('sinatra')
 require('sinatra/reloader')
+require("sinatra/activerecord")
 require("./lib/task")
 require("./lib/list")
 require("./lib/user")
 enable :sessions
 
 
-#set :bind, '0.0.0.0'
+set :bind, '0.0.0.0'
 
 get("/") do
 
   if session[:connected]
-    
     id_de_user = session.fetch(:user_id)
-    puts id_de_user
-    @current_user = User.find(id_de_user)
-    
-    @lists = @current_user.lists()
-    
-    
-    
+    @current_user = User.find(id_de_user)    
+    @lists = @current_user.lists() 
   end
+  
   erb(:index)
 end
 
@@ -34,26 +30,22 @@ post("/lists") do
   new_list.save()
   @current_user = User.find(session[:user_id])
   @lists = @current_user.lists()
-  
   erb(:index)
 end
 
 get("/list/:id") do
   @id = params.fetch("id")
-
   @current_list = List.find(@id)
-  #puts @current_list.class()
   @tasks = @current_list.tasks()
-  #puts @current_list.id()
   erb(:list)
 end
 
 post("/tasks") do
   @id = params.fetch("id")
-  @current_list = List.find(@id)
-  puts @current_list.class()
+  @current_list = List.find(@id) 
+  @date = params.fetch("task_date")
   description = params.fetch("description")
-  task = Task.new(description, @id, nil)
+  task = Task.new(description, @id, nil, @date)
   task.save()
   @tasks = @current_list.tasks()
   erb(:list)
@@ -79,8 +71,6 @@ get("/sign_up") do
 end
 
 post("/sign_up") do
-  
-  
   username = params.fetch("username")
   password = params.fetch("password")
   @new_user = User.new(username,password,nil)
@@ -93,14 +83,15 @@ post("/sign_up") do
     @new_user.setAvatar(img_avatar) 
   end
   
-  
   @new_user.save()
   session[:connected] = true;
   session[:user_id] = @new_user.id()
   session[:name] = @new_user.user_name()
+  
   if params['myfile'].nil?().!()
     session[:avatar] = @new_user.avatar()
   end
+  
   @lists = @new_user.lists()
   redirect '/'
   

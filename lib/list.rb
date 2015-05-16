@@ -22,7 +22,7 @@ class List
   end
   
   define_method(:delete) do
-    DB.exec("DELETE FROM tasks WHERE id = #{@id};")
+    DB.exec("DELETE FROM lists WHERE id = #{@id};")
   end
 
   define_singleton_method(:all_lists) do
@@ -49,14 +49,15 @@ class List
   
   define_method(:tasks) do
     returned_tasks = []
-    request_tasks = ("SELECT * FROM tasks WHERE list_id = #{@id};")
+    request_tasks = ("SELECT * FROM tasks WHERE list_id = #{@id} order by date asc;;")
     all_tasks_from_db = DB.exec(request_tasks)
     all_tasks_from_db.each() do |task|
       list_id = task.fetch("list_id")
       description = task.fetch("description")
       id = task.fetch("id")
+      date = task.fetch("date")
       puts description
-      returned_tasks.push(Task.new(description, list_id, id))
+      returned_tasks.push(Task.new(description, list_id, id, date))
     end
     returned_tasks
   end

@@ -5,6 +5,19 @@
   
 }
 
+.logo {
+  height: 80%;
+  width: auto;
+}
+
+.center {
+    margin-top: 2em;
+}
+
+.background-to-orange {
+  background-color: #f39c12;
+}
+
 .list-group-item {
   position:relative;
 }
