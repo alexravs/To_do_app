@@ -17,7 +17,7 @@ class List
   end
   
   define_method(:save) do
-    request_save = DB.exec("INSERT INTO lists (name, user_id) VALUES('#{@name}', #{@user_id}) RETURNING id;")
+    request_save = DB.exec("INSERT INTO lists (name, user_id) VALUES($$#{@name}$$, #{@user_id}) RETURNING id;")
     @id = request_save.first().fetch("id").to_i()
   end
   
@@ -49,7 +49,7 @@ class List
   
   define_method(:tasks) do
     returned_tasks = []
-    request_tasks = ("SELECT * FROM tasks WHERE list_id = #{@id} order by date asc;;")
+    request_tasks = ("SELECT * FROM tasks WHERE list_id = #{@id} order by date asc;")
     all_tasks_from_db = DB.exec(request_tasks)
     all_tasks_from_db.each() do |task|
       list_id = task.fetch("list_id")

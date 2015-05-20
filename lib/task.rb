@@ -27,7 +27,7 @@ class Task
   end
   
   define_method(:save) do
-    request_save = DB.exec("INSERT INTO tasks (description, list_id, date) VALUES('#{@description}', #{@list_id}, '#{@date}' ) RETURNING id;")
+    request_save = DB.exec("INSERT INTO tasks (description, list_id, date) VALUES($$#{@description}$$, #{@list_id}, '#{@date}' ) RETURNING id;")
     @id = request_save.first().fetch("id").to_i()
   end
   

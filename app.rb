@@ -14,7 +14,6 @@ enable :sessions
 set :bind, '0.0.0.0'
 
 get("/") do
-
   if session[:connected]
     id_de_user = session.fetch(:user_id)
     @current_user = User.find(id_de_user)    
@@ -67,33 +66,42 @@ get("/sign_up") do
 end
 
 get("/sign_up") do
+    
+
   erb(:sign_in)
 end
 
 post("/sign_up") do
   username = params.fetch("username")
   password = params.fetch("password")
-  @new_user = User.new(username,password,nil)
-  
-  if params['myfile'].nil?().!()
-    File.open('public/img/' + params['myfile'][:filename], "w") do |f|
-      f.write(params['myfile'][:tempfile].read)
+  $alert_blank = false;
+  if username.eql?("").!() and password.eql?("").!()
+    @new_user = User.new(username,password,nil)
+
+    if params['myfile'].nil?().!()
+      File.open('public/img/' + params['myfile'][:filename], "w") do |f|
+        f.write(params['myfile'][:tempfile].read)
+      end
+      img_avatar = params['myfile'][:filename]
+      @new_user.setAvatar(img_avatar) 
     end
-    img_avatar = params['myfile'][:filename]
-    @new_user.setAvatar(img_avatar) 
+
+    @new_user.save()
+    session[:connected] = true;
+    session[:user_id] = @new_user.id()
+    session[:name] = @new_user.user_name()
+
+    if params['myfile'].nil?().!()
+      session[:avatar] = @new_user.avatar()
+    end
+
+    @lists = @new_user.lists()
+    redirect '/'
+  else
+    $alert_blank = true;
+    redirect '/sign_up'
   end
   
-  @new_user.save()
-  session[:connected] = true;
-  session[:user_id] = @new_user.id()
-  session[:name] = @new_user.user_name()
-  
-  if params['myfile'].nil?().!()
-    session[:avatar] = @new_user.avatar()
-  end
-  
-  @lists = @new_user.lists()
-  redirect '/'
   
 end
 
@@ -112,6 +120,7 @@ get("/delete_list/:id") do
 end
 
 post("/sign_in") do
+  $alert_wrong_mdp_username = false;
   username = params.fetch("username")
   password = params.fetch("password")
   user_to_connect = User.is_in_database?(username, password)
@@ -120,6 +129,8 @@ post("/sign_in") do
     session[:user_id] = user_to_connect.fetch("id").to_i()
     session[:name] = user_to_connect.fetch("user_name")
     session[:avatar] = user_to_connect.fetch("avatar")
+  else
+    $alert_wrong_mdp_username = true;
   end
   redirect '/'
 end

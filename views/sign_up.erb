@@ -1,6 +1,10 @@
 <form action="sign_up" method="post" enctype='multipart/form-data' class="form-horizontal jumbotron">
   <input type="hidden" name="logged" value="true">
-
+  <% if $alert_blank %>
+    <div class="alert alert-danger " role="alert">
+      <a href="#" class="alert-link">Aucun champ ne peut resté vide...</a>
+    </div>
+  <% end %>
   <div class="form-group">
     <label for="exampleInputEmail1">Nom D'utilisateur: </label>
     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter a username" name="username">

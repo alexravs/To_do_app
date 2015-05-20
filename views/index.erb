@@ -69,12 +69,18 @@
     <button type="submit">Ajouter</button>
   </form>
 <% else %>
+  <% if $alert_wrong_mdp_username %>
+    <div class="alert alert-danger " role="alert">
+      <a href="#" class="alert-link">Mauvais nom d'utilisateur et/ou mot de passe... Veuillez réessayer</a>
+    </div>
+  <% end %>
   <div class="jumbotron text-center">
     <h1>Bienvenue</h1>
     <button type="button" class="btn btn-primary text-center" data-toggle="modal" data-target="#myModal">
       Connectez-vous
     </button>
     <p>Back-end réalisé en Ruby (Sinatra)</p>
+    <p>Par <a href="http://www.aravet.tk">A. Ravet</a></p>
   </div>
 <% end %>
 
